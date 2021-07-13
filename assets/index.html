@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Countdown Number Solver</title>
+</head>
+
+<body>
+  <h1>Countdown Number Solver</h1>
+  <br/>
+  <form action="/getResults" method="post">
+    <b>Input Numbers:</b>
+    <br/><input type="number" name="num1"><input type="number" name="num2">
+    <br/><input type="number" name="num3"><input type="number" name="num4">
+    <br/><input type="number" name="num5"><input type="number" name="num6">
+    <br/><b>Target:</b>
+    <br/><input type="number" name="target">
+    <br/><input type="submit" value="Submit">
+  </form>
+
+  <table>
+    <tr>
+      <th>Results</th>
+    </tr>
+  </table>
+
+  <script>
+    resultSetTable = document.querySelector("table")
+    fetch("/returnLatest")
+      .then(response => response.json())
+      .then(result => {
+
+          row = document.createElement("tr")
+          inputs = document.createElement("td")
+          inputs.innerHTML = result.inputs
+          row.appendChild(inputs)
+          resultSetTable.appendChild(row)
+
+          row = document.createElement("tr")
+          target = document.createElement("td")
+          target.innerHTML = result.target
+          row.appendChild(target)
+          resultSetTable.appendChild(row)
+          row = document.createElement("tr")
+          count = document.createElement("td")
+          count.innerHTML = result.solutions_found
+          row.appendChild(count)
+          resultSetTable.appendChild(row)
+
+          row = document.createElement("tr")
+          simple = document.createElement("td")
+          simple.innerHTML = result.simple_result
+          row.appendChild(simple)
+          resultSetTable.appendChild(row)
+
+          row = document.createElement("tr")
+          complex = document.createElement("td")
+          complex.innerHTML = result.complex_result
+          row.appendChild(complex)
+          resultSetTable.appendChild(row)
+        })
+
+
+  </script>
+</body>
+
+</html>
